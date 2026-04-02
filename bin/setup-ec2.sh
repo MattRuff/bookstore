@@ -62,9 +62,20 @@ eval "$(rbenv init -)"
 
 echo ""
 echo "--- [3/6] Installing Ruby 3.3.6 ---"
+echo "Checking available disk space..."
+AVAIL_KB=$(df -k / | awk 'NR==2 {print $4}')
+AVAIL_GB=$(echo "scale=1; $AVAIL_KB / 1048576" | bc)
+echo "Available: ${AVAIL_GB}GB"
+if [ "$AVAIL_KB" -lt 2097152 ]; then  # less than 2GB free
+  echo "WARNING: Less than 2GB free. Ruby compile may fail."
+  echo "Consider expanding your EBS volume or terminating unused processes."
+fi
+
 RUBY_VERSION="3.3.6"
 if ! rbenv versions | grep -q "$RUBY_VERSION"; then
-  rbenv install "$RUBY_VERSION"
+  # --disable-static skips building libruby-static.a, saving ~500MB of disk and
+  # avoiding an 'ar' bug on some Linux versions; not needed for running Rails
+  RUBY_CONFIGURE_OPTS="--disable-static" rbenv install "$RUBY_VERSION"
 fi
 rbenv global "$RUBY_VERSION"
 ruby --version
