@@ -86,7 +86,11 @@ fi
 
 echo ""
 echo "--- [4/6] Installing Bundler and gems ---"
-gem install bundler --no-document
+if [ "$USE_SYSTEM_RUBY" = true ]; then
+  sudo gem install bundler --no-document
+else
+  gem install bundler --no-document
+fi
 cd "$(dirname "$0")/.."
 bundle install
 
