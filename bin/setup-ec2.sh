@@ -13,13 +13,39 @@ fi
 
 echo ""
 echo "--- [1/6] Updating system packages ---"
-sudo apt-get update -y
-sudo apt-get install -y \
-  git curl wget build-essential \
-  libssl-dev libreadline-dev zlib1g-dev \
-  libsqlite3-dev sqlite3 \
-  libyaml-dev libffi-dev libgdbm-dev \
-  pkg-config
+if command -v apt-get &>/dev/null; then
+  echo "Using apt-get (Debian/Ubuntu)..."
+  sudo apt-get update -y
+  sudo apt-get install -y \
+    git curl wget build-essential \
+    libssl-dev libreadline-dev zlib1g-dev \
+    libsqlite3-dev sqlite3 \
+    libyaml-dev libffi-dev libgdbm-dev \
+    pkg-config
+elif command -v dnf &>/dev/null; then
+  echo "Using dnf (Amazon Linux 2023 / Fedora)..."
+  sudo dnf update -y
+  sudo dnf groupinstall -y "Development Tools"
+  sudo dnf install -y \
+    git curl wget \
+    openssl-devel readline-devel zlib-devel \
+    sqlite sqlite-devel \
+    libyaml-devel libffi-devel gdbm-devel \
+    pkg-config
+elif command -v yum &>/dev/null; then
+  echo "Using yum (Amazon Linux 2 / CentOS / RHEL)..."
+  sudo yum update -y
+  sudo yum groupinstall -y "Development Tools"
+  sudo yum install -y \
+    git curl wget \
+    openssl-devel readline-devel zlib-devel \
+    sqlite sqlite-devel \
+    libyaml-devel libffi-devel gdbm-devel \
+    pkgconfig
+else
+  echo "ERROR: No supported package manager found (apt-get, dnf, yum)."
+  exit 1
+fi
 
 echo ""
 echo "--- [2/6] Installing rbenv + ruby-build ---"
