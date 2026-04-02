@@ -26,8 +26,9 @@ elif command -v dnf &>/dev/null; then
   echo "Using dnf (Amazon Linux 2023 / Fedora)..."
   sudo dnf update -y
   sudo dnf groupinstall -y "Development Tools"
+  # curl-minimal is pre-installed on Amazon Linux 2023 and conflicts with curl; skip it
   sudo dnf install -y \
-    git curl wget \
+    git wget \
     openssl-devel readline-devel zlib-devel \
     sqlite sqlite-devel \
     libyaml-devel libffi-devel gdbm-devel \
