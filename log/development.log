@@ -1,0 +1,120 @@
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Bookstore'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Bookstore'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Bookstore'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-02 14:15:39.393718', '2026-04-02 14:15:39.393720') RETURNING "key" /*application='Bookstore'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Bookstore'*/[0m
+Migrating to CreateBooks (20260402141536)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Bookstore'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "author" varchar, "genre" varchar, "published_year" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Bookstore'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260402141536') RETURNING "version" /*application='Bookstore'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Bookstore'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Bookstore'*/[0m
+Started GET "/books.json" for ::1 at 2026-04-02 10:15:53 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Bookstore'*/[0m
+Processing by BooksController#index as JSON
+  [1m[36mBook Load (0.6ms)[0m  [1m[34mSELECT "books".* FROM "books" /*action='index',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:8:in 'BooksController#index'
+Completed 200 OK in 19ms (Views: 0.4ms | ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/books.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#index as JSON
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" /*action='index',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:8:in 'BooksController#index'
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/books.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#create as JSON
+  Parameters: {"book" => {"title" => "The Great Gatsby", "author" => "F. Scott Fitzgerald", "genre" => "Fiction", "published_year" => 1925}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:20:in 'BooksController#create'
+  [1m[36mBook Create (0.4ms)[0m  [1m[32mINSERT INTO "books" ("title", "author", "genre", "published_year", "created_at", "updated_at") VALUES ('The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 1925, '2026-04-02 14:16:05.572128', '2026-04-02 14:16:05.572128') RETURNING "id" /*action='create',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:20:in 'BooksController#create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:20:in 'BooksController#create'
+Completed 201 Created in 5ms (Views: 0.2ms | ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/books.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#create as JSON
+  Parameters: {"book" => {"title" => "1984", "author" => "George Orwell", "genre" => "Dystopian", "published_year" => 1949}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:20:in 'BooksController#create'
+  [1m[36mBook Create (0.7ms)[0m  [1m[32mINSERT INTO "books" ("title", "author", "genre", "published_year", "created_at", "updated_at") VALUES ('1984', 'George Orwell', 'Dystopian', 1949, '2026-04-02 14:16:05.632056', '2026-04-02 14:16:05.632056') RETURNING "id" /*action='create',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:20:in 'BooksController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:20:in 'BooksController#create'
+Completed 201 Created in 2ms (Views: 0.2ms | ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/books.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#index as JSON
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" /*action='index',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:8:in 'BooksController#index'
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/books/1.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#show as JSON
+  Parameters: {"id" => "1"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = 1 LIMIT 1 /*action='show',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:44:in 'BooksController#set_book'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/books/1.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#update as JSON
+  Parameters: {"book" => {"published_year" => 1926}, "id" => "1"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = 1 LIMIT 1 /*action='update',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:44:in 'BooksController#set_book'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:29:in 'BooksController#update'
+  [1m[36mBook Update (0.5ms)[0m  [1m[33mUPDATE "books" SET "published_year" = 1926, "updated_at" = '2026-04-02 14:16:05.762703' WHERE "books"."id" = 1 /*action='update',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:29:in 'BooksController#update'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:29:in 'BooksController#update'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 1.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/books/1.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#show as JSON
+  Parameters: {"id" => "1"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = 1 LIMIT 1 /*action='show',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:44:in 'BooksController#set_book'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/books/2.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#destroy as JSON
+  Parameters: {"id" => "2"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = 2 LIMIT 1 /*action='destroy',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:44:in 'BooksController#set_book'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='destroy',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:38:in 'BooksController#destroy'
+  [1m[36mBook Destroy (0.3ms)[0m  [1m[31mDELETE FROM "books" WHERE "books"."id" = 2 /*action='destroy',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:38:in 'BooksController#destroy'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='destroy',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:38:in 'BooksController#destroy'
+Completed 204 No Content in 1ms (ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/books.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#index as JSON
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" /*action='index',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:8:in 'BooksController#index'
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/books/2.json" for ::1 at 2026-04-02 10:16:05 -0400
+Processing by BooksController#show as JSON
+  Parameters: {"id" => "2"}
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = 2 LIMIT 1 /*action='show',application='Bookstore',controller='books'*/[0m
+  ↳ app/controllers/books_controller.rb:44:in 'BooksController#set_book'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Book with 'id'="2"):
+  
+app/controllers/books_controller.rb:44:in 'BooksController#set_book'
