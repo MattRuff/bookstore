@@ -87,9 +87,11 @@ fi
 echo ""
 echo "--- [4/6] Installing Bundler and gems ---"
 if [ "$USE_SYSTEM_RUBY" = true ]; then
-  sudo gem install bundler --no-document
+  # Install Bundler 3.x for Rails 8 compatibility (4.x not yet supported)
+  sudo gem uninstall bundler -a -x &>/dev/null || true
+  sudo gem install bundler -v "~> 3.5" --no-document
 else
-  gem install bundler --no-document
+  gem install bundler -v "~> 3.5" --no-document
 fi
 cd "$(dirname "$0")/.."
 bundle install
